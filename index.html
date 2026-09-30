@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0b0b10">
-<title>网页制造</title>
+<title>予你</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body {
@@ -77,7 +77,7 @@
 <body>
 <iframe id="view" allow="autoplay" scrolling="no"></iframe>
 <div class="menu" id="menu">
-  <h1>网页制造</h1>
+  <h1>予你</h1>
   <div id="list"></div>
 </div>
 <script>
@@ -144,7 +144,7 @@
       var direct = initialP && p === initialP;
       loadView(current.path + (p ? ('?p=' + encodeURIComponent(p)) : '') + (direct ? '&direct=1' : ''));
     } else {
-      document.title = '网页制造';
+      document.title = '予你';
       loadView(null);
       menu.style.display = 'block';
     }

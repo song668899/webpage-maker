@@ -1,0 +1,148 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0d0408;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#scene {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;
+  touch-action: none;
+}
+
+/* ---------- 中央文字 ---------- */
+.message {
+  position: fixed;
+  top: 40%;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 0 24px;
+  text-align: center;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.message .main {
+  font-size: clamp(34px, 11vw, 64px);
+  font-weight: 800;
+  letter-spacing: 8px;
+  background: linear-gradient(180deg, #fff3c4 0%, #ffd700 45%, #ff8c00 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 18px rgba(255, 180, 40, .55));
+  animation: goldPulse 2.8s ease-in-out infinite;
+}
+
+.message .sub {
+  margin-top: 16px;
+  min-height: 1.6em;
+  font-size: clamp(14px, 4vw, 20px);
+  letter-spacing: 3px;
+  color: #ffe4cc;
+  text-shadow: 0 0 6px rgba(0, 0, 0, .8), 0 0 16px rgba(255, 120, 60, .75);
+  opacity: 1;
+  transition: opacity .5s ease;
+}
+
+.message .sub.fade { opacity: 0; }
+
+.message .hint {
+  margin-top: 26px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #ff9e7d;
+  opacity: .55;
+  animation: goldPulse 2.8s ease-in-out infinite .8s;
+}
+
+@keyframes goldPulse {
+  0%, 100% { opacity: .78; }
+  50% { opacity: 1; }
+}
+
+/* ---------- 启动遮罩 ---------- */
+.start {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 45%, rgba(90, 10, 15, .88), rgba(13, 4, 8, .97));
+  transition: opacity .9s ease;
+}
+
+.start.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.start button {
+  font: inherit;
+  font-size: 16px;
+  letter-spacing: 4px;
+  color: #ffd9a0;
+  background: transparent;
+  border: 1px solid rgba(255, 170, 60, .6);
+  border-radius: 999px;
+  padding: 14px 36px;
+  cursor: pointer;
+  animation: ring 2.2s ease-in-out infinite;
+}
+
+.start .tip {
+  margin-top: 20px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #ffb98a;
+  opacity: .55;
+}
+
+@keyframes ring {
+  0%, 100% { box-shadow: 0 0 0 rgba(255, 160, 60, 0); }
+  50% { box-shadow: 0 0 26px rgba(255, 160, 60, .55); }
+}
+
+/* ---------- 返回按钮 ---------- */
+.back {
+  position: fixed;
+  top: max(12px, env(safe-area-inset-top));
+  left: max(12px, env(safe-area-inset-left));
+  z-index: 60;
+  padding: 8px 15px;
+  font: inherit;
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: rgba(255, 225, 190, .85);
+  background: rgba(30, 12, 10, .55);
+  border: 1px solid rgba(255, 170, 80, .35);
+  border-radius: 999px;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: transform .12s;
+}
+
+.back:active { transform: scale(.95); }

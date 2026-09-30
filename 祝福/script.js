@@ -4,7 +4,7 @@
   /* 祝福模块：读 ?p= 参数决定进哪个子项目，不带则显示列表 */
   var ITEMS = [
     { id: 'love', name: '表白', desc: '把想说的话，交给一颗心', path: '表白/index.html', ready: true },
-    { id: 'guoqing', name: '国庆祝福', desc: '待开发', path: '国庆/index.html', ready: false },
+    { id: 'guoqing', name: '国庆祝福', desc: '烟花之夜，点击放烟花', path: '国庆/index.html', ready: true },
     { id: 'chunjie', name: '春节祝福', desc: '待开发', path: '春节/index.html', ready: false }
   ];
 

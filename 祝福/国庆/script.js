@@ -422,7 +422,9 @@
   });
 
   var backBtn = document.getElementById('backBtn');
-  if (window.top === window) {
+  /* direct=1 = 从分享直达链接进入（封闭体验，不给返回入口）；独立打开同样隐藏 */
+  var isDirect = new URLSearchParams(window.location.search).get('direct') === '1';
+  if (window.top === window || isDirect) {
     backBtn.style.display = 'none';
   } else {
     backBtn.addEventListener('click', function () {

@@ -93,6 +93,7 @@
   var view = document.getElementById('view');
   var menu = document.getElementById('menu');
   var list = document.getElementById('list');
+  var initialP = new URLSearchParams(window.location.search).get('p');
   var i;
 
   for (i = 0; i < MODULES.length; i++) {
@@ -138,7 +139,10 @@
     if (current && current.ready) {
       document.title = current.name;
       menu.style.display = 'none';
-      loadView(current.path + (p ? ('?p=' + encodeURIComponent(p)) : ''));
+      /* 初始 URL 就带 p = 分享直达链接，透传 direct 让子页面隐藏返回按钮（封闭体验）；
+         从菜单点进来的 p 与初始不同（或初始无 p），保持可返回 */
+      var direct = initialP && p === initialP;
+      loadView(current.path + (p ? ('?p=' + encodeURIComponent(p)) : '') + (direct ? '&direct=1' : ''));
     } else {
       document.title = '网页制造';
       loadView(null);

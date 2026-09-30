@@ -6,7 +6,9 @@
     { id: 'mines', name: '扫雷', desc: '三档难度，长按或标记模式插旗', path: '扫雷/index.html', ready: true }
   ];
 
-  var p = new URLSearchParams(window.location.search).get('p');
+  var sp = new URLSearchParams(window.location.search);
+  var p = sp.get('p');
+  var direct = sp.get('direct') === '1';
   var view = document.getElementById('view');
   var menu = document.getElementById('menu');
   var list = document.getElementById('list');
@@ -19,7 +21,7 @@
 
   if (current && current.ready) {
     document.title = current.name;
-    view.src = current.path;
+    view.src = current.path + (direct ? '?direct=1' : '');
     view.style.display = 'block';
     return;
   }

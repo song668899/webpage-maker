@@ -231,9 +231,10 @@
 
   document.addEventListener('gesturestart', function (e) { e.preventDefault(); });
 
-  /* 返回模块菜单（在 iframe 内时可用，独立打开则隐藏） */
+  /* 返回模块菜单（在 iframe 内时可用；独立打开或分享直达 direct=1 则隐藏） */
   var backBtn = document.getElementById('backBtn');
-  if (window.top === window) {
+  var isDirect = new URLSearchParams(window.location.search).get('direct') === '1';
+  if (window.top === window || isDirect) {
     backBtn.style.display = 'none';
   } else {
     backBtn.addEventListener('click', function () {

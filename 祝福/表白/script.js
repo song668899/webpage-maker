@@ -441,5 +441,16 @@
     if (started) bursts.burst(e.clientX, e.clientY, CONFIG.palette, 16);
   });
 
+  /* 返回模块菜单（在 iframe 内时可用，独立打开则隐藏） */
+  var backBtn = document.getElementById('backBtn');
+  if (window.top === window) {
+    backBtn.style.display = 'none';
+  } else {
+    backBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      window.top.postMessage({ nav: '?m=wish' }, '*');
+    });
+  }
+
   requestAnimationFrame(tick);
 })();

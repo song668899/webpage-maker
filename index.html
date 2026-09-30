@@ -85,30 +85,16 @@
   'use strict';
 
   var MODULES = [
-    { id: 'love', name: '表白', path: '表白/index.html', ready: true },
-    { id: 'wish', name: '祝福', path: '祝福/index.html', ready: false },
-    { id: 'game', name: '游戏', path: '游戏/index.html', ready: true }
+    { id: 'wish', name: '祝福', path: '祝福/index.html', ready: true },
+    { id: 'game', name: '游戏', path: '游戏/index.html', ready: true },
+    { id: 'mem', name: '纪念', path: '纪念/index.html', ready: false }
   ];
 
-  var id = new URLSearchParams(window.location.search).get('m');
   var view = document.getElementById('view');
   var menu = document.getElementById('menu');
   var list = document.getElementById('list');
-  var current = null;
   var i;
 
-  for (i = 0; i < MODULES.length; i++) {
-    if (MODULES[i].id === id) current = MODULES[i];
-  }
-
-  if (current && current.ready) {
-    document.title = current.name;
-    view.src = current.path;
-    view.style.display = 'block';
-    return;
-  }
-
-  menu.style.display = 'block';
   for (i = 0; i < MODULES.length; i++) {
     var item = MODULES[i];
     var a = document.createElement('a');
@@ -120,6 +106,62 @@
     }
     list.appendChild(a);
   }
+
+  /* iframe 导航用 location.replace()，避免产生多余历史条目
+     （否则浏览器返回键要按两次：先退 iframe 再退根地址） */
+  function loadView(url) {
+    try {
+      if (url) {
+        view.contentWindow.location.replace(url);
+        view.style.display = 'block';
+      } else {
+        view.contentWindow.location.replace('about:blank');
+        view.style.display = 'none';
+      }
+    } catch (e) {
+      if (url) view.src = url;
+      else view.removeAttribute('src');
+      view.style.display = url ? 'block' : 'none';
+    }
+  }
+
+  function route() {
+    var sp = new URLSearchParams(window.location.search);
+    var m = sp.get('m');
+    var p = sp.get('p');
+    var current = null;
+
+    for (var j = 0; j < MODULES.length; j++) {
+      if (MODULES[j].id === m) current = MODULES[j];
+    }
+
+    if (current && current.ready) {
+      document.title = current.name;
+      menu.style.display = 'none';
+      loadView(current.path + (p ? ('?p=' + encodeURIComponent(p)) : ''));
+    } else {
+      document.title = '网页制造';
+      loadView(null);
+      menu.style.display = 'block';
+    }
+  }
+
+  /* 供子页面调用（跨 iframe 层级，统一走 postMessage） */
+  window.addEventListener('message', function (e) {
+    if (e.origin !== window.location.origin) return;
+    if (e.data && typeof e.data.nav === 'string') {
+      window.__nav(e.data.nav);
+    }
+  });
+
+  /* 直调入口（同层 iframe 可用） */
+  window.__nav = function (query) {
+    window.history.pushState(null, '', window.location.pathname + (query || ''));
+    route();
+  };
+
+  window.addEventListener('popstate', route);
+  route();
 })();
 </script>
 </body>

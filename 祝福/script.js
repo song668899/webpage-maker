@@ -1,9 +1,11 @@
 (function () {
   'use strict';
 
-  /* 游戏模块：读 ?p= 参数决定进哪个游戏，不带则显示列表 */
+  /* 祝福模块：读 ?p= 参数决定进哪个子项目，不带则显示列表 */
   var ITEMS = [
-    { id: 'mines', name: '扫雷', desc: '三档难度，长按或标记模式插旗', path: '扫雷/index.html', ready: true }
+    { id: 'love', name: '表白', desc: '把想说的话，交给一颗心', path: '表白/index.html', ready: true },
+    { id: 'guoqing', name: '国庆祝福', desc: '待开发', path: '国庆/index.html', ready: false },
+    { id: 'chunjie', name: '春节祝福', desc: '待开发', path: '春节/index.html', ready: false }
   ];
 
   var p = new URLSearchParams(window.location.search).get('p');
@@ -39,7 +41,7 @@
     row.className = 'row';
     label.className = 'label';
     ico.className = 'ico';
-    ico.textContent = item.ready ? '🎮' : '🎁';
+    ico.textContent = item.ready ? '❤️' : '🎁';
     label.appendChild(ico);
     label.appendChild(document.createTextNode(item.name));
     desc.className = 'desc';
@@ -54,7 +56,7 @@
       a.addEventListener('click', function (e) {
         e.preventDefault();
         if (window.top !== window) {
-          window.top.postMessage({ nav: '?m=game&p=' + item.id }, '*');
+          window.top.postMessage({ nav: '?m=wish&p=' + item.id }, '*');
         } else {
           window.location.href = '?p=' + item.id;
         }

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#0b0b10">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>扫雷</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="game">
+  <button id="backBtn" class="back" type="button">← 返回</button>
+  <div class="levels" id="levels"></div>
+
+  <header class="head" id="head">
+    <div class="chip"><span class="ico">💣</span><span id="mineCount">0</span></div>
+    <button id="restart" type="button" aria-label="重新开始">😊</button>
+    <div class="chip"><span class="ico">⏱</span><span id="time">0</span></div>
+  </header>
+
+  <div class="board-wrap">
+    <div id="board"></div>
+  </div>
+
+  <footer class="foot" id="foot">
+    <button id="flagMode" class="mode-btn" type="button" aria-pressed="false">
+      <span class="dot"></span><span id="modeText">标记模式</span>
+    </button>
+  </footer>
+</div>
+
+<div id="flash" class="flash"></div>
+
+<div id="scrim" class="scrim"></div>
+
+<div id="result" class="result" role="dialog" aria-modal="true">
+  <div class="sheet">
+    <h2 id="resultTitle">游戏结束</h2>
+    <p id="resultMsg"></p>
+    <div class="stats">
+      <div><span>用时</span><strong id="resultTime">0</strong></div>
+      <div><span>难度</span><strong id="resultLevel">简单</strong></div>
+      <div><span>最佳</span><strong id="resultBest">--</strong></div>
+    </div>
+    <div class="actions">
+      <button id="againBtn" type="button">再来一局</button>
+      <button id="closeBtn" type="button">看看棋盘</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
